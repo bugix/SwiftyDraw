@@ -94,23 +94,23 @@ class ViewController: UIViewController, SwiftyDrawViewDelegate {
         self.view.addSubview(opacitySlider)
     }
     
-    func colorButtonPressed(button: ColorButton) {
+    @objc func colorButtonPressed(button: ColorButton) {
         drawView.lineColor = button.color
     }
     
-    func undo() {
+    @objc func undo() {
         drawView.removeLastLine()
     }
     
-    func deleteDrawing() {
+    @objc func deleteDrawing() {
         drawView.clearCanvas()
     }
     
-    func lineWidthSliderValueDidChange(sender:UISlider!) {
+    @objc func lineWidthSliderValueDidChange(sender:UISlider!) {
         drawView.lineWidth = CGFloat(sender.value)
     }
     
-    func lineOpacitySliderValueDidChange(sender:UISlider!) {
+    @objc func lineOpacitySliderValueDidChange(sender:UISlider!) {
         drawView.lineOpacity = CGFloat(sender.value)
     }
     
