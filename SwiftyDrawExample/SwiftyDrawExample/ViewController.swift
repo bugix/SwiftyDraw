@@ -26,6 +26,7 @@ class ViewController: UIViewController, SwiftyDrawViewDelegate {
     var yellowButton : ColorButton!
     var undoButton : UIButton!
     var deleteButton : UIButton!
+    var captureButton : UIButton!
     var lineWidthSlider : UISlider!
     var opacitySlider : UISlider!
 
@@ -63,17 +64,23 @@ class ViewController: UIViewController, SwiftyDrawViewDelegate {
         yellowButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
         self.view.addSubview(yellowButton)
         
-        undoButton = UIButton(frame: CGRect(x: self.view.frame.width - 60, y: 30, width: 60, height: 30))
+        undoButton = UIButton(frame: CGRect(x: self.view.frame.width - 80, y: 30, width: 80, height: 30))
         undoButton.setTitleColor(UIColor.black, for: UIControlState())
         undoButton.setTitle("undo", for: UIControlState())
         undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
         self.view.addSubview(undoButton)
         
-        deleteButton = UIButton(frame: CGRect(x: self.view.frame.width - 60, y: 60, width: 60, height: 30))
+        deleteButton = UIButton(frame: CGRect(x: self.view.frame.width - 80, y: 60, width: 80, height: 30))
         deleteButton.setTitleColor(UIColor.black, for: UIControlState())
         deleteButton.setTitle("delete", for: UIControlState())
         deleteButton.addTarget(self, action: #selector(deleteDrawing), for: .touchUpInside)
         self.view.addSubview(deleteButton)
+
+        captureButton = UIButton(frame: CGRect(x: self.view.frame.width - 80, y: 90, width: 80, height: 30))
+        captureButton.setTitleColor(UIColor.black, for: UIControlState())
+        captureButton.setTitle("capture", for: UIControlState())
+        captureButton.addTarget(self, action: #selector(captureDrawing), for: .touchUpInside)
+        self.view.addSubview(captureButton)
     }
     
     func addSliders() {
@@ -104,6 +111,22 @@ class ViewController: UIViewController, SwiftyDrawViewDelegate {
     
     @objc func deleteDrawing() {
         drawView.clearCanvas()
+    }
+
+    @objc func captureDrawing() {
+        if let image = drawView.captureView() {
+            if let data = UIImagePNGRepresentation(image) {
+                let filename = getDocumentsDirectory().appendingPathComponent("capture.png")
+                try? data.write(to: filename)
+
+                print("Captured to \(filename)")
+            }
+        }
+    }
+
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
     }
     
     @objc func lineWidthSliderValueDidChange(sender:UISlider!) {

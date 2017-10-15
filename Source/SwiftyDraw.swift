@@ -207,6 +207,18 @@ open class SwiftyDrawView: UIView {
         setNeedsDisplay()
     }
 
+    public func captureView() -> UIImage? {
+        UIGraphicsBeginImageContext(bounds.size)
+        if let context = UIGraphicsGetCurrentContext() {
+            layer.render(in: context)
+            let img = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return img
+        }
+
+        return nil
+    }
+
 /********************************** Private Functions **********************************/
 
     private func setTouchPoints(_ touch: UITouch, view: UIView) {
