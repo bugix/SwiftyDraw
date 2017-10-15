@@ -115,14 +115,12 @@ open class SwiftyDrawView: UIView {
 
     override public init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.clear
     }
 
     /// Public init(coder:) implementation
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = UIColor.clear
     }
 
     /// Overriding draw(rect:) to stroke paths

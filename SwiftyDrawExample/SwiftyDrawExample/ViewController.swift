@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         drawView = SwiftyDrawView(frame: self.view.frame)
+        drawView.backgroundColor = .white
         drawView.delegate = self
         view.addSubview(drawView)
         addButtons()
@@ -41,34 +42,29 @@ class ViewController: UIViewController {
     }
 
     func addButtons() {
-        redButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 50, width: 40, height: 40), color: UIColor.red)
+        redButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 50, width: 40, height: 40), color: .red)
         redButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
         view.addSubview(redButton)
         buttons.append(redButton)
 
-        greenButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 100, width: 40, height: 40), color: UIColor.green)
+        greenButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 100, width: 40, height: 40), color: .green)
         greenButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
-        view.addSubview(greenButton)
         buttons.append(greenButton)
 
-        blueButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 150, width: 40, height: 40), color: UIColor.blue)
+        blueButton = ColorButton(frame: CGRect(x: 10, y: view.frame.height - 150, width: 40, height: 40), color: .blue)
         blueButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
-        view.addSubview(blueButton)
         buttons.append(blueButton)
 
-        orangeButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 150, width: 40, height: 40), color: UIColor.orange)
+        orangeButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 150, width: 40, height: 40), color: .orange)
         orangeButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
-        view.addSubview(orangeButton)
         buttons.append(orangeButton)
 
-        purpleButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 100, width: 40, height: 40), color: UIColor.purple)
+        purpleButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 100, width: 40, height: 40), color: .purple)
         purpleButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
-        view.addSubview(purpleButton)
         buttons.append(purpleButton)
 
-        yellowButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 50, width: 40, height: 40), color: UIColor.yellow)
+        yellowButton = ColorButton(frame: CGRect(x: 60, y: view.frame.height - 50, width: 40, height: 40), color: .yellow)
         yellowButton.addTarget(self, action: #selector(colorButtonPressed(button:)), for: .touchUpInside)
-        view.addSubview(yellowButton)
         buttons.append(yellowButton)
 
         undoButton = UIButton(type: .system)
@@ -76,7 +72,6 @@ class ViewController: UIViewController {
         undoButton.setTitle("undo", for: .normal)
         undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
         undoButton.isEnabled = false
-        view.addSubview(undoButton)
         buttons.append(undoButton)
 
         deleteButton = UIButton(type: .system)
@@ -84,7 +79,6 @@ class ViewController: UIViewController {
         deleteButton.setTitle("delete", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteDrawing), for: .touchUpInside)
         deleteButton.isEnabled = false
-        view.addSubview(deleteButton)
         buttons.append(deleteButton)
 
         captureButton = UIButton(type: .system)
@@ -92,12 +86,13 @@ class ViewController: UIViewController {
         captureButton.setTitle("capture", for: .normal)
         captureButton.addTarget(self, action: #selector(captureDrawing), for: .touchUpInside)
         captureButton.isEnabled = false
-        view.addSubview(captureButton)
         buttons.append(captureButton)
+
+        buttons.forEach { view.addSubview($0) }
     }
 
     func addSliders() {
-        lineWidthSlider = UISlider(frame: CGRect(x: 120, y: view.frame.height - 50, width: 100, height: 40))
+        lineWidthSlider = UISlider(frame: CGRect(x: 120, y: view.frame.height - 50, width: 200, height: 40))
         lineWidthSlider.minimumValue = 1.0
         lineWidthSlider.maximumValue = 30.0
         lineWidthSlider.setValue(10.0, animated: false)
@@ -105,7 +100,7 @@ class ViewController: UIViewController {
         lineWidthSlider.addTarget(self, action: #selector(lineWidthSliderValueDidChange(sender:)), for: .valueChanged)
         view.addSubview(lineWidthSlider)
 
-        opacitySlider = UISlider(frame: CGRect(x: 120, y: self.view.frame.height - 80, width: 100, height: 40))
+        opacitySlider = UISlider(frame: CGRect(x: 120, y: self.view.frame.height - 80, width: 200, height: 40))
         opacitySlider.minimumValue = 0.001
         opacitySlider.maximumValue = 1.0
         opacitySlider.setValue(1.0, animated: false)
@@ -146,7 +141,7 @@ class ViewController: UIViewController {
         }
     }
 
-    func getDocumentsDirectory() -> URL {
+    private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
