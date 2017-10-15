@@ -107,6 +107,10 @@ open class SwiftyDrawView: UIView {
         }
     }
 
+    public var hasContent: Bool {
+        return pathArray.count > 0
+    }
+
     /// Public init(frame:) implementation
 
     override public init(frame: CGRect) {
