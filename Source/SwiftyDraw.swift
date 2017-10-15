@@ -244,13 +244,13 @@ open class SwiftyDrawView: UIView {
         return newPath
     }
 
-    private func calculateMidPoint(_ p1: CGPoint, p2: CGPoint) -> CGPoint {
-        return CGPoint(x: (p1.x + p2.x) * 0.5, y: (p1.y + p2.y) * 0.5)
+    private func calculateMidPoint(_ point1: CGPoint, _ point2: CGPoint) -> CGPoint {
+        return CGPoint(x: (point1.x + point2.x) * 0.5, y: (point1.y + point2.y) * 0.5)
     }
 
     private func getMidPoints() -> (CGPoint, CGPoint) {
-        let mid1 = calculateMidPoint(previousPoint, p2: previousPreviousPoint)
-        let mid2 = calculateMidPoint(currentPoint, p2: previousPoint)
+        let mid1 = calculateMidPoint(previousPoint, previousPreviousPoint)
+        let mid2 = calculateMidPoint(currentPoint, previousPoint)
         return (mid1, mid2)
     }
 

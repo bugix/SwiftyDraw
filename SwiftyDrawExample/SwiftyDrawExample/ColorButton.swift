@@ -15,20 +15,20 @@
 
 import UIKit
 
-class ColorButton : UIButton {
-    
+class ColorButton: UIButton {
+
     var color: UIColor
-    
+
     init(frame: CGRect, color: UIColor) {
         self.color = color
         super.init(frame: frame)
-        self.layer.cornerRadius = 0.5 * frame.size.width
-        self.layer.borderColor = UIColor.black.cgColor
-        self.layer.borderWidth = 3.0
-        self.clipsToBounds = true
-        self.backgroundColor = color
+        layer.cornerRadius = 0.5 * frame.size.width
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 3.0
+        clipsToBounds = true
+        backgroundColor = color
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
